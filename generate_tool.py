@@ -222,6 +222,7 @@ def generate_tool_page(tool_meta):
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>{name} - AI工具箱</title>
 <meta name="description" content="{desc} 完全免费，浏览器本地处理，无需下载。">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3843355642836530" crossorigin="anonymous"></script>
 <style>
 *,*::before,*::after{{box-sizing:border-box;margin:0;padding:0}}
 body{{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f8fafc;color:#1e293b;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:20px}}
@@ -249,6 +250,10 @@ footer a{{color:#6366f1;text-decoration:none}}
 <p><span class="loading"></span> 工具功能即将上线...</p>
 <p style="margin-top:12px;font-size:.9rem;color:#94a3b8">正在由 AI 自动开发完整功能</p>
 </div>
+</div>
+<div style="max-width:600px;margin:20px auto">
+<ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3843355642836530" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
+<script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 <footer><p>🛠️ <a href="/">AI工具箱</a> · 每日自动更新</p></footer>
 </body>
@@ -289,9 +294,9 @@ def update_index_html(new_card_html):
 def update_sitemap():
     """更新 sitemap.xml"""
     tools = [d.name for d in sorted(TOOLS_DIR.iterdir()) if d.is_dir()]
-    urls = ["https://freetools-daily.vercel.app/"]
+    urls = ["https://freetools-daily-h3v5.vercel.app/"]
     for t in tools:
-        urls.append(f"https://freetools-daily.vercel.app/tools/{t}")
+        urls.append(f"https://freetools-daily-h3v5.vercel.app/tools/{t}")
     
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
@@ -358,3 +363,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
