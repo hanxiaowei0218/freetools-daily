@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://freetools-daily-h3v5.vercel.app/</loc><lastmod>2026-06-14</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
   <url><loc>https://freetools-daily-h3v5.vercel.app/tools/image-compressor</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
@@ -8,4 +8,26 @@
   <url><loc>https://freetools-daily-h3v5.vercel.app/tools/json-formatter</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://freetools-daily-h3v5.vercel.app/tools/base64-encoder</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://freetools-daily-h3v5.vercel.app/tools/color-palette</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/url-encoder</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/timestamp-converter</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/uuid-generator</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/lorem-ipsum</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/case-converter</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/percentage-calc</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/random-number</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/stopwatch</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/gradient-generator</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/emoji-search</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/unit-converter</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/csv-to-json</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/cron-parser</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/markdown-preview</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/html-entity</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/regex-tester</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/ip-lookup</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/user-agent</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/diff-checker</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/barcode-generator</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/image-cropper</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://freetools-daily-h3v5.vercel.app/tools/meme-generator</loc><lastmod>2026-06-14</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
 </urlset>

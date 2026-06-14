@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CSV ? JSON ?? - AI???</title>
+<meta name="description" content="??CSV?JSON?????????????????????">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3843355642836530" crossorigin="anonymous"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--accent:#6366f1;--border:#e2e8f0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.container{max-width:700px;margin:0 auto;padding:30px 20px}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.9rem;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+header{text-align:center;margin-bottom:30px}
+header .icon{font-size:3rem}header h1{font-size:2rem;font-weight:800;margin:8px 0}header p{color:var(--muted)}
+.card{background:var(--card);border-radius:16px;padding:28px;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:20px}
+.btn{padding:10px 20px;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#4f46e5}
+.btn-outline{background:#fff;color:var(--accent);border:1px solid var(--accent)}.btn-outline:hover{background:#eef2ff}
+input,textarea,select{width:100%;border:2px solid var(--border);border-radius:10px;padding:12px;font-size:.95rem;outline:none;transition:border-color .2s;font-family:inherit}
+input:focus,textarea:focus{border-color:var(--accent)}
+.result{background:#1e293b;color:#e2e8f0;min-height:80px;border-radius:12px;padding:16px;font-family:'Courier New',monospace;font-size:.85rem;white-space:pre-wrap;word-break:break-all;margin-top:12px;position:relative;overflow:auto;max-height:400px}
+.copy-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.15);border:none;color:#fff;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:.75rem}
+.copy-btn:hover{background:rgba(255,255,255,.25)}
+label{display:block;font-weight:600;margin-bottom:6px;font-size:.9rem}
+.row{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+footer{text-align:center;margin-top:40px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+footer a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="container">
+
+<a class="back" href="/">? ?????</a>
+<header><div class="icon">??</div><h1>CSV ? JSON</h1><p>??CSV?JSON?????????????????????</p></header>
+
+<div class="card">
+<div style="display:flex;gap:6px;margin-bottom:12px">
+<button class="btn btn-primary" onclick="csvToJson()" style="flex:1">CSV ? JSON</button>
+<button class="btn btn-outline" onclick="jsonToCsv()" style="flex:1">JSON ? CSV</button>
+</div>
+<textarea id="input" placeholder="??CSV?JSON??..." style="min-height:120px;font-family:'Courier New',monospace;font-size:.85rem"></textarea>
+<div class="result" id="result" style="display:none"><button class="copy-btn" onclick="copy(this,document.getElementById('result').textContent.trim())">?? ??</button></div>
+<div id="error" style="color:#ef4444;font-size:.85rem;margin-top:4px"></div>
+</div>
+<script>
+function csvToJson(){
+try{
+var t=document.getElementById('input').value.trim(),lines=t.split('\n'),headers=lines[0].split(',').map(function(h){return h.trim()}),result=[];
+for(var i=1;i<lines.length;i++){
+if(!lines[i].trim())continue;
+var vals=lines[i].split(','),obj={};
+headers.forEach(function(h,j){obj[h]=vals[j]?vals[j].trim():''});
+result.push(obj);
+}
+show(JSON.stringify(result,null,2));
+}catch(e){document.getElementById('error').textContent='??: '+e.message}
+}
+function jsonToCsv(){
+try{
+var data=JSON.parse(document.getElementById('input').value);
+if(!Array.isArray(data)){document.getElementById('error').textContent='???JSON??';return}
+var keys=Object.keys(data[0]),lines=[keys.join(',')];
+data.forEach(function(row){lines.push(keys.map(function(k){return JSON.stringify(row[k]||'')}).join(','))});
+show(lines.join('\n'));
+}catch(e){document.getElementById('error').textContent='??: '+e.message}
+}
+function show(s){document.getElementById('result').innerHTML='<button class="copy-btn" onclick="copy(this,document.getElementById(\'result\').textContent.trim())">?? ??</button>'+s;document.getElementById('result').style.display='block';document.getElementById('error').textContent=''}
+function copy(btn,text){navigator.clipboard.writeText(text);btn.textContent='? ???';setTimeout(function(){btn.textContent='?? ??'},1500)}
+document.getElementById('input').value='name,age,city\n??,28,??\n??,32,??\n??,25,??';
+csvToJson();
+</script>
+<footer><p>??? <a href="/">AI???</a> ? ??????</p></footer>
+</div>
+</body>
+</html>

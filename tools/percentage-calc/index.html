@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>?????? - AI???</title>
+<meta name="description" content="??????????????????????">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3843355642836530" crossorigin="anonymous"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--accent:#6366f1;--border:#e2e8f0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.container{max-width:700px;margin:0 auto;padding:30px 20px}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.9rem;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+header{text-align:center;margin-bottom:30px}
+header .icon{font-size:3rem}header h1{font-size:2rem;font-weight:800;margin:8px 0}header p{color:var(--muted)}
+.card{background:var(--card);border-radius:16px;padding:28px;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:20px}
+.btn{padding:10px 20px;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#4f46e5}
+.btn-outline{background:#fff;color:var(--accent);border:1px solid var(--accent)}.btn-outline:hover{background:#eef2ff}
+input,textarea,select{width:100%;border:2px solid var(--border);border-radius:10px;padding:12px;font-size:.95rem;outline:none;transition:border-color .2s;font-family:inherit}
+input:focus,textarea:focus{border-color:var(--accent)}
+.result{background:#1e293b;color:#e2e8f0;min-height:80px;border-radius:12px;padding:16px;font-family:'Courier New',monospace;font-size:.85rem;white-space:pre-wrap;word-break:break-all;margin-top:12px;position:relative}
+.copy-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.15);border:none;color:#fff;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:.75rem}
+.copy-btn:hover{background:rgba(255,255,255,.25)}
+footer{text-align:center;margin-top:40px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+footer a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="container">
+
+<a class="back" href="/">? ?????</a>
+<header><div class="icon">??</div><h1>??????</h1><p>??????????????????????</p></header>
+
+<div class="card">
+<div style="display:flex;gap:12px;align-items:center;margin-bottom:12px">
+<input id="num1" type="number" placeholder="??" value="200">
+<span style="font-size:1.2rem;font-weight:700">?</span>
+<input id="num2" type="number" placeholder="???" value="15">
+<span style="font-size:1.2rem;font-weight:700">%</span>
+</div>
+<div style="font-size:1.4rem;text-align:center;font-weight:800;padding:16px;background:#eef2ff;border-radius:10px;color:var(--accent)" id="resultPct">= 30</div>
+<div style="display:flex;gap:8px;margin-top:16px">
+<button class="btn btn-outline" onclick="mode='pct';calc()" style="flex:1" id="btnPct">% ??</button>
+<button class="btn btn-outline" onclick="mode='discount';calc()" style="flex:1" id="btnDiscount">??? ??</button>
+<button class="btn btn-outline" onclick="mode='change';calc()" style="flex:1" id="btnChange">?? ???</button>
+</div>
+</div>
+<script>
+var mode='pct';
+function calc(){
+var a=+document.getElementById('num1').value||0,b=+document.getElementById('num2').value||0,r;
+if(mode=='pct')r=a*b/100;
+else if(mode=='discount')r=a*(1-b/100);
+else r=(b-a)/a*100;
+document.getElementById('resultPct').textContent='= '+(mode=='change'?r.toFixed(2)+'%':r.toFixed(2));
+if(mode=='discount')document.getElementById('resultPct').textContent='???: '+r.toFixed(2);
+}
+document.getElementById('num1').oninput=calc;document.getElementById('num2').oninput=calc;
+document.getElementById('btnPct').onclick=function(){mode='pct';calc();document.querySelectorAll('.btn-outline').forEach(function(b){b.style.background='#fff';b.style.color='var(--accent)'});this.style.background='var(--accent)';this.style.color='#fff'};
+document.getElementById('btnDiscount').onclick=function(){mode='discount';calc();document.querySelectorAll('.btn-outline').forEach(function(b){b.style.background='#fff';b.style.color='var(--accent)'});this.style.background='var(--accent)';this.style.color='#fff'};
+document.getElementById('btnChange').onclick=function(){mode='change';calc();document.querySelectorAll('.btn-outline').forEach(function(b){b.style.background='#fff';b.style.color='var(--accent)'});this.style.background='var(--accent)';this.style.color='#fff'};
+document.getElementById('btnPct').style.background='var(--accent)';document.getElementById('btnPct').style.color='#fff';
+calc();
+</script>
+<footer><p>??? <a href="/">AI???</a> ? ??????</p></footer>
+</div>
+</body>
+</html>

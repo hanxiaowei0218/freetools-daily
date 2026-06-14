@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>???????? - AI???</title>
+<meta name="description" content="??????????????????????????">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3843355642836530" crossorigin="anonymous"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--accent:#6366f1;--border:#e2e8f0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.container{max-width:700px;margin:0 auto;padding:30px 20px}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.9rem;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+header{text-align:center;margin-bottom:30px}
+header .icon{font-size:3rem}header h1{font-size:2rem;font-weight:800;margin:8px 0}header p{color:var(--muted)}
+.card{background:var(--card);border-radius:16px;padding:28px;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:20px}
+.btn{padding:10px 20px;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#4f46e5}
+.btn-outline{background:#fff;color:var(--accent);border:1px solid var(--accent)}.btn-outline:hover{background:#eef2ff}
+input,textarea,select{width:100%;border:2px solid var(--border);border-radius:10px;padding:12px;font-size:.95rem;outline:none;transition:border-color .2s;font-family:inherit}
+input:focus,textarea:focus{border-color:var(--accent)}
+.result{background:#1e293b;color:#e2e8f0;min-height:80px;border-radius:12px;padding:16px;font-family:'Courier New',monospace;font-size:.85rem;white-space:pre-wrap;word-break:break-all;margin-top:12px;position:relative;overflow:auto;max-height:400px}
+.copy-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.15);border:none;color:#fff;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:.75rem}
+.copy-btn:hover{background:rgba(255,255,255,.25)}
+label{display:block;font-weight:600;margin-bottom:6px;font-size:.9rem}
+.row{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+footer{text-align:center;margin-top:40px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+footer a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="container">
+
+<a class="back" href="/">? ?????</a>
+<header><div class="icon">??</div><h1>???????</h1><p>??????????????????????????</p></header>
+
+<div class="card">
+<label>?????</label>
+<input id="regex" value="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" placeholder="????..." style="font-family:'Courier New',monospace;margin-bottom:12px">
+<label>????</label>
+<textarea id="text" style="min-height:100px" placeholder="??????..."></textarea>
+<div style="display:flex;gap:8px;margin-top:12px">
+<input id="flags" placeholder="???g i m" value="g" style="flex:1">
+<button class="btn btn-primary" onclick="test()" style="width:auto">?? ??</button>
+</div>
+<div style="margin-top:12px;padding:12px;background:#eef2ff;border-radius:10px;min-height:40px;font-size:.9rem" id="info"></div>
+<div id="highlight" style="margin-top:12px;padding:16px;background:#fff;border:1px solid var(--border);border-radius:10px;min-height:80px;line-height:1.8;white-space:pre-wrap;word-break:break-all"></div>
+</div>
+<script>
+function test(){
+try{
+var r=document.getElementById('regex').value,f=document.getElementById('flags').value,re=new RegExp(r,f),t=document.getElementById('text').value;
+var matches=[],m;while((m=re.exec(t))!==null){matches.push({i:m.index,l:m[0].length,s:m[0]});if(!f.includes('g'))break}
+document.getElementById('info').innerHTML='<b>'+matches.length+'</b> ???';
+var html='',last=0;
+matches.forEach(function(m){html+=esc(t.slice(last,m.i))+'<mark style="background:#fde68a;padding:1px 2px;border-radius:2px">'+esc(m.s)+'</mark>';last=m.i+m.l});
+html+=esc(t.slice(last));
+document.getElementById('highlight').innerHTML=html||'???';
+}catch(e){document.getElementById('info').innerHTML='? '+e.message;document.getElementById('highlight').innerHTML=esc(t)}
+}
+function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}
+document.getElementById('text').value='?????zhangsan@example.com
+?????lisi@test.org
+?????not-an-email
+???admin@ai-toolbox.cn';
+document.getElementById('regex').oninput=test;document.getElementById('text').oninput=test;
+test();
+</script>
+<footer><p>??? <a href="/">AI???</a> ? ??????</p></footer>
+</div>
+</body>
+</html>

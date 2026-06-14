@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>?????? - AI???</title>
+<meta name="description" content="???????????????????????????????">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3843355642836530" crossorigin="anonymous"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--accent:#6366f1;--border:#e2e8f0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.container{max-width:700px;margin:0 auto;padding:30px 20px}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.9rem;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+header{text-align:center;margin-bottom:30px}
+header .icon{font-size:3rem}header h1{font-size:2rem;font-weight:800;margin:8px 0}header p{color:var(--muted)}
+.card{background:var(--card);border-radius:16px;padding:28px;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:20px}
+.btn{padding:10px 20px;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#4f46e5}
+.btn-outline{background:#fff;color:var(--accent);border:1px solid var(--accent)}.btn-outline:hover{background:#eef2ff}
+input,textarea,select{width:100%;border:2px solid var(--border);border-radius:10px;padding:12px;font-size:.95rem;outline:none;transition:border-color .2s;font-family:inherit}
+input:focus,textarea:focus{border-color:var(--accent)}
+.result{background:#1e293b;color:#e2e8f0;min-height:80px;border-radius:12px;padding:16px;font-family:'Courier New',monospace;font-size:.85rem;white-space:pre-wrap;word-break:break-all;margin-top:12px;position:relative;overflow:auto;max-height:400px}
+.copy-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.15);border:none;color:#fff;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:.75rem}
+.copy-btn:hover{background:rgba(255,255,255,.25)}
+label{display:block;font-weight:600;margin-bottom:6px;font-size:.9rem}
+.row{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+footer{text-align:center;margin-top:40px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+footer a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="container">
+
+<a class="back" href="/">? ?????</a>
+<header><div class="icon">??</div><h1>??????</h1><p>???????????????????????????????</p></header>
+
+<div class="card">
+<div style="border:2px dashed var(--border);border-radius:12px;padding:30px;text-align:center;cursor:pointer;margin-bottom:12px" id="dropZone" onclick="document.getElementById('fileInput').click()">
+<div style="font-size:3rem">??</div><p style="color:var(--muted)">???????????</p>
+<input type="file" id="fileInput" accept="image/*" style="display:none">
+</div>
+<div id="editor" style="display:none">
+<div style="position:relative;display:inline-block;max-width:100%">
+<canvas id="canvas" style="max-width:100%;display:block;border-radius:8px"></canvas>
+</div>
+<input id="topText" placeholder="????????" style="margin-top:8px">
+<input id="bottomText" placeholder="????????" style="margin-top:8px">
+<div class="row"><label style="min-width:40px">??</label><input type="range" id="fontSize" min="20" max="80" value="40" style="flex:1"><span id="sizeVal">40</span></div>
+<button class="btn btn-primary" onclick="draw()" style="width:100%;margin-top:8px">?? ??</button>
+<button class="btn btn-outline" onclick="downloadMeme()" style="width:100%;margin-top:8px">? ?????</button>
+</div>
+</div>
+<script>
+var img=null,canvas=document.getElementById('canvas');
+document.getElementById('fileInput').onchange=function(e){
+var file=e.target.files[0];if(!file)return;
+var reader=new FileReader();
+reader.onload=function(ev){
+img=new Image();img.onload=function(){document.getElementById('editor').style.display='block';document.getElementById('dropZone').style.display='none';draw()};
+img.src=ev.target.result;
+};
+reader.readAsDataURL(file);
+};
+function draw(){
+if(!img)return;
+var w=img.width,h=img.height,maxW=600,scale=1;
+if(w>maxW){scale=maxW/w;w=maxW;h=Math.floor(img.height*scale)}
+canvas.width=w;canvas.height=h;
+var ctx=canvas.getContext('2d');ctx.drawImage(img,0,0,w,h);
+var fs=+document.getElementById('fontSize').value,tt=document.getElementById('topText').value,bt=document.getElementById('bottomText').value;
+ctx.fillStyle='#fff';ctx.strokeStyle='#000';ctx.lineWidth=fs/8;ctx.font='bold '+fs+'px sans-serif';ctx.textAlign='center';
+if(tt){ctx.strokeText(tt,w/2,fs+10);ctx.fillText(tt,w/2,fs+10)}
+if(bt){ctx.strokeText(bt,w/2,h-20);ctx.fillText(bt,w/2,h-20)}
+}
+document.getElementById('fontSize').oninput=function(){document.getElementById('sizeVal').textContent=this.value;draw()};
+document.getElementById('topText').oninput=draw;document.getElementById('bottomText').oninput=draw;
+function downloadMeme(){var a=document.createElement('a');a.href=canvas.toDataURL();a.download='meme.png';a.click()}
+</script>
+<footer><p>??? <a href="/">AI???</a> ? ??????</p></footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>????? - AI???</title>
+<meta name="description" content="??/??/??/??/??????????????">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3843355642836530" crossorigin="anonymous"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--accent:#6366f1;--border:#e2e8f0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.container{max-width:700px;margin:0 auto;padding:30px 20px}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.9rem;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+header{text-align:center;margin-bottom:30px}
+header .icon{font-size:3rem}header h1{font-size:2rem;font-weight:800;margin:8px 0}header p{color:var(--muted)}
+.card{background:var(--card);border-radius:16px;padding:28px;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:20px}
+.btn{padding:10px 20px;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#4f46e5}
+.btn-outline{background:#fff;color:var(--accent);border:1px solid var(--accent)}.btn-outline:hover{background:#eef2ff}
+input,textarea,select{width:100%;border:2px solid var(--border);border-radius:10px;padding:12px;font-size:.95rem;outline:none;transition:border-color .2s;font-family:inherit}
+input:focus,textarea:focus{border-color:var(--accent)}
+.result{background:#1e293b;color:#e2e8f0;min-height:80px;border-radius:12px;padding:16px;font-family:'Courier New',monospace;font-size:.85rem;white-space:pre-wrap;word-break:break-all;margin-top:12px;position:relative;overflow:auto;max-height:400px}
+.copy-btn{position:absolute;top:8px;right:8px;background:rgba(255,255,255,.15);border:none;color:#fff;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:.75rem}
+.copy-btn:hover{background:rgba(255,255,255,.25)}
+label{display:block;font-weight:600;margin-bottom:6px;font-size:.9rem}
+.row{display:flex;gap:12px;align-items:center;margin-bottom:12px}
+footer{text-align:center;margin-top:40px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+footer a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="container">
+
+<a class="back" href="/">? ?????</a>
+<header><div class="icon">??</div><h1>?????</h1><p>??/??/??/??/??????????????</p></header>
+
+<div class="card">
+<select id="category" onchange="switchCat()" style="margin-bottom:12px">
+<option value="length">?? ??</option><option value="weight">?? ??</option>
+<option value="temp">??? ??</option><option value="area">?? ??</option>
+<option value="speed">?? ??</option>
+</select>
+<div class="row"><input id="inputVal" type="number" value="1" style="flex:1"><select id="fromUnit" style="width:auto;flex:1"></select></div>
+<div style="text-align:center;font-size:1.5rem;padding:8px">=</div>
+<div class="row"><input id="outputVal" readonly style="flex:1;background:#eef2ff"><select id="toUnit" style="width:auto;flex:1"></select></div>
+</div>
+<script>
+var units={length:{m:1,km:1000,cm:0.01,mm:0.001,mi:1609.34,yd:0.9144,ft:0.3048,in:0.0254,li:500},weight:{kg:1,g:0.001,mg:0.000001,t:1000,lb:0.4536,oz:0.02835,jin:0.5},temp:{},area:{m2:1,km2:1e6,ha:10000,mu:666.67,ft2:0.0929},speed:{ms:1,kmh:0.2778,mph:0.447,kn:0.5144}};
+var tempConv={c:'???',f:'???',k:'???'};
+function convert(){
+var cat=document.getElementById('category').value;
+if(cat==='temp'){
+var v=+document.getElementById('inputVal').value,f=document.getElementById('fromUnit').value,t=document.getElementById('toUnit').value,r=v;
+if(f==='f')r=(v-32)*5/9;else if(f==='k')r=v-273.15;
+if(t==='f')r=r*9/5+32;else if(t==='k')r=r+273.15;
+document.getElementById('outputVal').value=r.toFixed(4);
+}else{
+var u=units[cat],f=document.getElementById('fromUnit').value,t=document.getElementById('toUnit').value,r=+document.getElementById('inputVal').value*u[f]/u[t];
+document.getElementById('outputVal').value=parseFloat(r.toPrecision(10));
+}
+}
+function switchCat(){
+var cat=document.getElementById('category').value,opts='';
+if(cat==='temp'){var u=tempConv;for(var k in u)opts+='<option value="'+k+'">'+u[k]+'</option>'}
+else{var u=units[cat];for(var k in u)opts+='<option value="'+k+'">'+k+'</option>'}
+document.getElementById('fromUnit').innerHTML=opts;document.getElementById('toUnit').innerHTML=opts;
+if(cat!=='temp'){document.getElementById('toUnit').selectedIndex=1}
+convert();
+}
+document.getElementById('inputVal').oninput=convert;
+document.getElementById('fromUnit').onchange=convert;document.getElementById('toUnit').onchange=convert;
+switchCat();
+</script>
+<footer><p>??? <a href="/">AI???</a> ? ??????</p></footer>
+</div>
+</body>
+</html>
