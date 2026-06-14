@@ -28,7 +28,7 @@ jobs:
       - name: Commit and push
         run: |
           git config user.name "AI Toolbox Bot"
-          git config user.email "bot@aitoolbox.vercel.app"
+          git config user.email "bot@freetools-daily.vercel.app"
           git add -A
           if git diff --staged --quiet; then
             echo "No changes to commit"

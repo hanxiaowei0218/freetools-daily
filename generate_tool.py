@@ -289,9 +289,9 @@ def update_index_html(new_card_html):
 def update_sitemap():
     """更新 sitemap.xml"""
     tools = [d.name for d in sorted(TOOLS_DIR.iterdir()) if d.is_dir()]
-    urls = ["https://aitoolbox.vercel.app/"]
+    urls = ["https://freetools-daily.vercel.app/"]
     for t in tools:
-        urls.append(f"https://aitoolbox.vercel.app/tools/{t}")
+        urls.append(f"https://freetools-daily.vercel.app/tools/{t}")
     
     xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
     xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
