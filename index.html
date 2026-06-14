@@ -82,15 +82,18 @@ body{
   display:grid;
   grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
   gap:20px;
+  align-items:stretch;
 }
+.tool-card{display:flex}
 /* Card */
 .card{
   background:var(--card);border-radius:var(--radius);
   padding:32px 28px;box-shadow:var(--shadow);
   border:1px solid transparent;
   transition:all .3s cubic-bezier(.4,0,.2,1);
-  text-decoration:none;color:inherit;display:block;
+  text-decoration:none;color:inherit;display:flex;flex-direction:column;
   position:relative;overflow:hidden;
+  height:100%;
 }
 .card::before{
   content:'';position:absolute;top:0;left:0;right:0;
@@ -106,13 +109,16 @@ body{
 .card:hover::before{opacity:1}
 .card-icon{
   font-size:2.8rem;margin-bottom:16px;
-  display:inline-block;
+  display:flex;align-items:center;justify-content:center;
+  width:64px;height:64px;border-radius:16px;
+  background:rgba(99,102,241,.06);
   transition:transform .3s;
 }
 .card:hover .card-icon{transform:scale(1.1)}
 .card h2{font-size:1.15rem;font-weight:700;margin-bottom:8px;color:var(--text)}
-.card p{color:var(--muted);font-size:.88rem;line-height:1.6}
+.card p{color:var(--muted);font-size:.88rem;line-height:1.6;flex:1}
 .card .tag{
+  margin-top:auto;
   display:inline-block;padding:3px 10px;border-radius:20px;
   font-size:.7rem;font-weight:600;margin-top:14px;
   background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(139,92,246,.08));
