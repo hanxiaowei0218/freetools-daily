@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>调色板生成器 - AI工具箱</title>
+<meta name="description" content="随机生成美观配色方案，一键复制色号。设计师灵感神器，支持多种配色模式。">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3843355642836530" crossorigin="anonymous"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--accent:#6366f1;--border:#e2e8f0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.container{max-width:700px;margin:0 auto;padding:30px 20px}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.9rem;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+header{text-align:center;margin-bottom:24px}
+header .icon{font-size:3rem}header h1{font-size:2rem;font-weight:800;margin:8px 0}header p{color:var(--muted)}
+.palette{display:flex;border-radius:16px;overflow:hidden;height:200px;margin-bottom:12px;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+.color-block{flex:1;position:relative;cursor:pointer;transition:flex .3s;display:flex;align-items:flex-end;justify-content:center;padding-bottom:12px}
+.color-block:hover{flex:1.5}
+.color-code{background:rgba(0,0,0,.4);color:#fff;padding:4px 10px;border-radius:6px;font-size:.8rem;font-family:'Courier New',monospace;opacity:0;transition:opacity .2s}
+.color-block:hover .color-code{opacity:1}
+.color-list{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.color-chip{display:flex;align-items:center;gap:8px;background:var(--card);border:1px solid var(--border);border-radius:10px;padding:8px 14px;cursor:pointer;transition:all .2s}
+.color-chip:hover{box-shadow:0 2px 8px rgba(0,0,0,.1)}
+.color-dot{width:28px;height:28px;border-radius:6px}
+.color-hex{font-family:'Courier New',monospace;font-size:.85rem;font-weight:600}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.btn{padding:10px 20px;border:none;border-radius:10px;font-size:.9rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#4f46e5}
+.btn-outline{background:#fff;color:var(--accent);border:1px solid var(--accent)}.btn-outline:hover{background:#eef2ff}
+.scheme-picker{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px}
+.scheme-btn{padding:6px 14px;border-radius:20px;border:1px solid var(--border);background:#fff;cursor:pointer;font-size:.8rem;transition:all .2s}
+.scheme-btn.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+.toast{position:fixed;top:20px;left:50%;transform:translateX(-50%);background:#1e293b;color:#fff;padding:10px 24px;border-radius:8px;font-size:.9rem;z-index:100;animation:fadeInOut 1.5s forwards}
+@keyframes fadeInOut{0%{opacity:0;top:0}15%{opacity:1;top:20px}70%{opacity:1;top:20px}100%{opacity:0;top:0}}
+footer{text-align:center;margin-top:40px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+footer a{color:var(--accent);text-decoration:none}
+@media(max-width:480px){.palette{height:140px}}
+</style>
+</head>
+<body>
+<div class="container">
+<a class="back" href="/">← 返回工具箱</a>
+<header><div class="icon">🎨</div><h1>调色板生成器</h1><p>随机生成配色 · 一键复制色号 · 设计师灵感神器</p></header>
+
+<div class="palette" id="palette"></div>
+<div class="color-list" id="colorList"></div>
+
+<div class="scheme-picker">
+<button class="scheme-btn active" data-scheme="random">🎲 随机</button>
+<button class="scheme-btn" data-scheme="warm">🔥 暖色</button>
+<button class="scheme-btn" data-scheme="cool">❄️ 冷色</button>
+<button class="scheme-btn" data-scheme="pastel">🌸 莫兰迪</button>
+<button class="scheme-btn" data-scheme="vibrant">💥 鲜艳</button>
+<button class="scheme-btn" data-scheme="earth">🌍 大地色</button>
+</div>
+
+<div class="actions">
+<button class="btn btn-primary" id="generateBtn">🔄 换一组</button>
+<button class="btn btn-outline" id="copyAllBtn">📋 复制全部色号</button>
+</div>
+
+<footer><p>🛠️ <a href="/">AI工具箱</a> · 每日自动更新</p></footer>
+</div>
+
+<script>
+var scheme='random',colors=[];
+function hslToHex(h,s,l){s/=100;l/=100;var a=s*Math.min(l,1-l);var f=function(n){var k=(n+h/30)%12;return Math.round((l-a*Math.max(Math.min(k-3,9-k,1),-1))*255).toString(16).padStart(2,'0')};return'#'+f(0)+f(8)+f(4)}
+function generate(){
+var hues=[];
+if(scheme==='random'){var b=Math.random()*360;for(var i=0;i<5;i++)hues.push((b+i*40+Math.random()*20)%360)}
+else if(scheme==='warm'){b=Math.random()*40;for(i=0;i<5;i++)hues.push(b+i*15)}
+else if(scheme==='cool'){b=180+Math.random()*60;for(i=0;i<5;i++)hues.push(b+i*20)}
+else if(scheme==='pastel'){b=Math.random()*360;for(i=0;i<5;i++)hues.push(b+i*40);colors=hues.map(h=>hslToHex(h,40+Math.random()*20,75+Math.random()*15));return finish()}
+else if(scheme==='vibrant'){b=Math.random()*360;for(i=0;i<5;i++)hues.push(b+i*50);colors=hues.map(h=>hslToHex(h,80+Math.random()*20,50+Math.random()*15));return finish()}
+else if(scheme==='earth'){b=20+Math.random()*40;for(i=0;i<5;i++)hues.push(b+i*25);colors=hues.map(h=>hslToHex(h,30+Math.random()*25,35+Math.random()*25));return finish()}
+colors=hues.map(h=>hslToHex(h,60+Math.random()*30,45+Math.random()*25));
+finish();
+}
+function finish(){
+var p=document.getElementById('palette'),cl=document.getElementById('colorList');
+p.innerHTML=colors.map(c=>'<div class="color-block" style="background:'+c+'" onclick="copyHex(\''+c+'\')"><span class="color-code">'+c+'</span></div>').join('');
+cl.innerHTML=colors.map(c=>'<div class="color-chip" onclick="copyHex(\''+c+'\')"><div class="color-dot" style="background:'+c+'"></div><span class="color-hex">'+c+'</span></div>').join('');
+}
+function copyHex(hex){navigator.clipboard.writeText(hex);showToast('已复制 '+hex)}
+function showToast(msg){var t=document.createElement('div');t.className='toast';t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),1500)}
+document.getElementById('generateBtn').onclick=generate;
+document.getElementById('copyAllBtn').onclick=function(){navigator.clipboard.writeText(colors.join(', '));showToast('已复制全部色号')};
+document.querySelectorAll('.scheme-btn').forEach(function(b){b.onclick=function(){document.querySelectorAll('.scheme-btn').forEach(function(x){x.classList.remove('active')});b.classList.add('active');scheme=b.dataset.scheme;generate()}});
+generate();
+</script>
+</body>
+</html>

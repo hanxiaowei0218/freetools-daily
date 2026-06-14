@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSON 格式化工具 - AI工具箱</title>
+<meta name="description" content="在线JSON格式化、压缩、验证工具。语法高亮，错误提示，一键复制。开发者必备。">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3843355642836530" crossorigin="anonymous"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--accent:#6366f1;--border:#e2e8f0;--red:#ef4444;--green:#22c55e}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.container{max-width:800px;margin:0 auto;padding:30px 20px}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.9rem;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+header{text-align:center;margin-bottom:24px}
+header .icon{font-size:3rem}header h1{font-size:2rem;font-weight:800;margin:8px 0}header p{color:var(--muted)}
+.toolbar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap}
+.toolbar button{padding:8px 16px;border:none;border-radius:8px;font-size:.85rem;cursor:pointer;font-weight:600;transition:all .2s}
+.btn-format{background:var(--accent);color:#fff}.btn-format:hover{background:#4f46e5}
+.btn-outline{background:#fff;color:var(--accent);border:1px solid var(--accent)}.btn-outline:hover{background:#eef2ff}
+textarea{width:100%;min-height:180px;border:2px solid var(--border);border-radius:12px;padding:16px;font-size:.9rem;font-family:'Courier New',monospace;resize:vertical;outline:none;transition:border-color .2s}
+textarea:focus{border-color:var(--accent)}
+#output{background:#1e293b;color:#e2e8f0;min-height:180px;border-radius:12px;padding:16px;font-family:'Courier New',monospace;font-size:.85rem;white-space:pre-wrap;word-break:break-all;overflow:auto;max-height:400px}
+.error{color:var(--red);font-size:.85rem;margin-top:8px;min-height:20px}
+.success{color:var(--green)}
+footer{text-align:center;margin-top:40px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+footer a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="container">
+<a class="back" href="/">← 返回工具箱</a>
+<header><div class="icon">📋</div><h1>JSON 格式化工具</h1><p>格式化 · 压缩 · 验证 · 一键复制</p></header>
+
+<div class="toolbar">
+<button class="btn-format" id="formatBtn">✨ 格式化</button>
+<button class="btn-outline" id="compressBtn">🗜️ 压缩</button>
+<button class="btn-outline" id="validateBtn">✅ 验证</button>
+<button class="btn-outline" id="copyBtn">📋 复制结果</button>
+<button class="btn-outline" id="clearBtn">🗑️ 清空</button>
+</div>
+<div class="error" id="errorMsg"></div>
+<textarea placeholder='粘贴 JSON 数据，例如：{"name":"AI工具箱","tools":["压缩","生成器"]}' id="input"></textarea>
+<div id="output" style="display:none"></div>
+
+<footer><p>🛠️ <a href="/">AI工具箱</a> · 每日自动更新</p></footer>
+</div>
+
+<script>
+var inp=document.getElementById('input'),out=document.getElementById('output'),err=document.getElementById('errorMsg');
+function format(){try{var obj=JSON.parse(inp.value);var s=JSON.stringify(obj,null,2);showResult(s);err.textContent='✅ JSON 格式正确'}catch(e){err.textContent='❌ '+e.message;out.style.display='none'}}
+function compress(){try{var obj=JSON.parse(inp.value);showResult(JSON.stringify(obj));err.textContent='✅ 已压缩'}catch(e){err.textContent='❌ '+e.message}}
+function validateOnly(){try{JSON.parse(inp.value);err.textContent='✅ JSON 格式正确';err.className='error success'}catch(e){err.textContent='❌ '+e.message;err.className='error'}}
+function showResult(s){out.textContent=s;out.style.display='block'}
+document.getElementById('formatBtn').onclick=format;
+document.getElementById('compressBtn').onclick=compress;
+document.getElementById('validateBtn').onclick=validateOnly;
+document.getElementById('copyBtn').onclick=function(){if(out.style.display!=='none'){navigator.clipboard.writeText(out.textContent);err.textContent='✅ 已复制到剪贴板';err.className='error success'}};
+document.getElementById('clearBtn').onclick=function(){inp.value='';out.style.display='none';err.textContent=''};
+inp.addEventListener('input',function(){if(!inp.value.trim()){out.style.display='none';err.textContent=''}});
+// Demo
+inp.value='{"name":"AI工具箱","version":"1.0","tools":[{"id":1,"name":"图片压缩"},{"id":2,"name":"密码生成"}]}';
+format();
+</script>
+</body>
+</html>

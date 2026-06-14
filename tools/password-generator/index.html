@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>随机密码生成器 - AI工具箱</title>
+<meta name="description" content="在线生成高强度随机密码，自定义长度和字符类型，一键复制。浏览器本地生成，安全可靠。">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3843355642836530" crossorigin="anonymous"></script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--accent:#6366f1;--border:#e2e8f0;--green:#22c55e}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
+.container{max-width:600px;margin:0 auto;padding:30px 20px}
+.back{display:inline-flex;align-items:center;gap:6px;color:var(--accent);text-decoration:none;font-size:.9rem;margin-bottom:24px}
+.back:hover{text-decoration:underline}
+header{text-align:center;margin-bottom:30px}
+header .icon{font-size:3rem}header h1{font-size:2rem;font-weight:800;margin:8px 0}header p{color:var(--muted)}
+.card{background:var(--card);border-radius:16px;padding:28px;border:1px solid var(--border);box-shadow:0 1px 3px rgba(0,0,0,.06);margin-bottom:20px}
+.password-display{background:#1e293b;color:#22c55e;font-family:'Courier New',monospace;font-size:1.5rem;padding:16px 20px;border-radius:10px;text-align:center;word-break:break-all;min-height:60px;display:flex;align-items:center;justify-content:center;position:relative}
+.password-display .copy-btn{position:absolute;right:12px;background:rgba(255,255,255,.1);border:none;color:#fff;padding:6px 12px;border-radius:6px;cursor:pointer;font-size:.8rem}
+.password-display .copy-btn:hover{background:rgba(255,255,255,.2)}
+label{display:block;font-weight:600;margin-bottom:6px;font-size:.9rem}
+input[type=range]{width:100%;accent-color:var(--accent);margin-bottom:16px}
+.length-display{text-align:center;font-size:1.4rem;font-weight:700;color:var(--accent);margin-bottom:16px}
+.checkbox-group{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
+.checkbox-group label{display:flex;align-items:center;gap:8px;font-weight:400;cursor:pointer}
+.checkbox-group input[type=checkbox]{width:18px;height:18px;accent-color:var(--accent)}
+.btn{width:100%;padding:14px;border:none;border-radius:10px;font-size:1rem;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:#4f46e5}
+.strength-bar{height:6px;border-radius:3px;margin-top:12px;transition:all .3s}
+.strength-label{font-size:.8rem;margin-top:4px;text-align:right}
+footer{text-align:center;margin-top:40px;padding-top:20px;border-top:1px solid var(--border);color:var(--muted);font-size:.85rem}
+footer a{color:var(--accent);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="container">
+<a class="back" href="/">← 返回工具箱</a>
+<header><div class="icon">🔐</div><h1>随机密码生成器</h1><p>浏览器本地生成 · 绝不联网 · 安全可靠</p></header>
+
+<div class="card">
+<div class="password-display" id="passwordDisplay">
+<span id="passwordText">点击生成</span>
+<button class="copy-btn" id="copyBtn">📋 复制</button>
+</div>
+<div class="strength-bar" id="strengthBar" style="background:#e2e8f0"></div>
+<div class="strength-label" id="strengthLabel"></div>
+</div>
+
+<div class="card">
+<label>密码长度：<span id="lengthVal">16</span></label>
+<input type="range" id="lengthSlider" min="6" max="64" value="16">
+<div class="checkbox-group">
+<label><input type="checkbox" id="uppercase" checked> 包含大写字母 (A-Z)</label>
+<label><input type="checkbox" id="lowercase" checked> 包含小写字母 (a-z)</label>
+<label><input type="checkbox" id="numbers" checked> 包含数字 (0-9)</label>
+<label><input type="checkbox" id="symbols"> 包含特殊符号 (!@#$%)</label>
+</div>
+<button class="btn btn-primary" id="generateBtn">🔄 生成密码</button>
+</div>
+
+<footer><p>🛠️ <a href="/">AI工具箱</a> · 每日自动更新</p></footer>
+</div>
+
+<script>
+const el={pwd:document.getElementById('passwordText'),copy:document.getElementById('copyBtn'),len:document.getElementById('lengthSlider'),lenVal:document.getElementById('lengthVal'),up:document.getElementById('uppercase'),lo:document.getElementById('lowercase'),num:document.getElementById('numbers'),sym:document.getElementById('symbols'),gen:document.getElementById('generateBtn'),bar:document.getElementById('strengthBar'),label:document.getElementById('strengthLabel')};
+
+function generate(){
+var chars='',len=+el.len.value;
+if(el.up.checked)chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+if(el.lo.checked)chars+='abcdefghijklmnopqrstuvwxyz';
+if(el.num.checked)chars+='0123456789';
+if(el.sym.checked)chars+='!@#$%^&*()_+-=[]{}|;:,.<>?';
+if(!chars){el.pwd.textContent='请至少选一种字符';return}
+var pwd='';for(var i=0;i<len;i++)pwd+=chars[Math.floor(Math.random()*chars.length)];
+el.pwd.textContent=pwd;
+var score=0;if(len>=12)score++;if(len>=20)score++;if(el.up.checked)score++;if(el.lo.checked)score++;if(el.num.checked)score++;if(el.sym.checked)score+=2;
+var colors=['#ef4444','#f97316','#eab308','#22c55e','#22c55e'];
+var labels=['弱','一般','中等','强','非常强'];
+el.bar.style.width=Math.min(score*20,100)+'%';el.bar.style.background=colors[Math.min(score,4)];
+el.label.textContent=labels[Math.min(score,4)];
+}
+
+el.len.oninput=()=>{el.lenVal.textContent=el.len.value;generate()};
+el.gen.onclick=generate;
+el.copy.onclick=()=>{navigator.clipboard.writeText(el.pwd.textContent);el.copy.textContent='✅ 已复制';setTimeout(()=>el.copy.textContent='📋 复制',1500)};
+generate();
+</script>
+</body>
+</html>
