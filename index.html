@@ -4,288 +4,434 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AI工具箱 - 每日一个免费在线小工具</title>
-<meta name="description" content="每天自动生成一个实用的在线工具，免费、无需下载、即开即用。">
+<meta name="description" content="每天自动生成一个实用的在线工具，完全免费、无需下载、即开即用。图片处理、文档转换、文字工具……应有尽有。">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧰</text></svg>">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3843355642836530" crossorigin="anonymous"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--bg:#f8fafc;--card:#fff;--text:#1e293b;--muted:#64748b;--accent:#6366f1;--border:#e2e8f0}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
-.container{max-width:1100px;margin:0 auto;padding:0 20px}
-header{padding:60px 0 40px;text-align:center}
-header h1{font-size:2.5rem;font-weight:800;background:linear-gradient(135deg,var(--accent),#a855f7);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-header p{color:var(--muted);font-size:1.1rem;margin-top:8px}
-.stats{display:flex;justify-content:center;gap:40px;margin-top:24px}
+:root{
+  --bg:#f0f2f5;--card:#fff;--text:#1a1a2e;--muted:#6b7280;
+  --accent:#6366f1;--accent2:#8b5cf6;--accent3:#a855f7;
+  --border:#e5e7eb;--shadow:0 4px 24px rgba(0,0,0,.06);
+  --gradient:linear-gradient(135deg,#6366f1,#8b5cf6,#a855f7);
+  --radius:20px;
+}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang SC','Hiragino Sans GB','Microsoft YaHei',sans-serif;
+  background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;
+}
+/* Hero */
+.hero{
+  background:var(--gradient);
+  padding:80px 20px 100px;
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;
+  top:-50%;left:-50%;width:200%;height:200%;
+  background:radial-gradient(circle at 30% 50%,rgba(255,255,255,.08) 0%,transparent 50%),
+             radial-gradient(circle at 70% 80%,rgba(255,255,255,.05) 0%,transparent 50%);
+  animation: floatBg 20s ease-in-out infinite;
+}
+@keyframes floatBg{
+  0%,100%{transform:translate(0,0)}
+  50%{transform:translate(-2%,-2%)}
+}
+.hero>*{position:relative;z-index:1}
+.hero .icon{font-size:4rem;margin-bottom:16px;animation:bounce 2s infinite}
+@keyframes bounce{
+  0%,100%{transform:translateY(0)}
+  50%{transform:translateY(-10px)}
+}
+.hero h1{
+  font-size:2.8rem;font-weight:900;color:#fff;
+  text-shadow:0 2px 10px rgba(0,0,0,.15);
+  letter-spacing:-1px;
+}
+.hero p{color:rgba(255,255,255,.85);font-size:1.15rem;margin-top:10px;font-weight:400}
+/* Stats */
+.stats{
+  display:flex;justify-content:center;gap:60px;margin-top:36px;
+}
 .stat{text-align:center}
-.stat-num{font-size:2rem;font-weight:700;color:var(--accent)}
-.stat-label{font-size:.85rem;color:var(--muted)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;padding:20px 0 60px}
-.card{background:var(--card);border-radius:16px;padding:28px;box-shadow:0 1px 3px rgba(0,0,0,.06);border:1px solid var(--border);transition:transform .2s,box-shadow .2s;text-decoration:none;color:inherit;display:block}
-.card:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(99,102,241,.12)}
-.card-icon{font-size:2.5rem;margin-bottom:12px}
-.card h2{font-size:1.2rem;margin-bottom:6px}
-.card p{color:var(--muted);font-size:.9rem;line-height:1.5}
-footer{text-align:center;padding:40px 0;color:var(--muted);font-size:.85rem;border-top:1px solid var(--border)}
-footer a{color:var(--accent);text-decoration:none}
-@media(max-width:640px){header h1{font-size:1.8rem}.grid{grid-template-columns:1fr}.stats{gap:24px}}
+.stat-num{font-size:2.4rem;font-weight:900;color:#fff;text-shadow:0 2px 8px rgba(0,0,0,.1)}
+.stat-label{font-size:.88rem;color:rgba(255,255,255,.7);margin-top:4px;font-weight:500}
+/* Search */
+.search-wrap{
+  max-width:600px;margin:-30px auto 0;
+  padding:0 20px;position:relative;z-index:10;
+}
+.search-wrap input{
+  width:100%;padding:16px 50px 16px 24px;
+  border:none;border-radius:50px;
+  font-size:1rem;font-family:inherit;
+  box-shadow:0 8px 30px rgba(0,0,0,.12);
+  outline:none;transition:box-shadow .3s;
+}
+.search-wrap input:focus{box-shadow:0 12px 40px rgba(99,102,241,.25)}
+.search-wrap .search-icon{
+  position:absolute;right:36px;top:50%;transform:translateY(-50%);
+  font-size:1.2rem;pointer-events:none;
+}
+/* Container */
+.container{max-width:1200px;margin:0 auto;padding:40px 20px 60px}
+/* Grid */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+  gap:20px;
+}
+/* Card */
+.card{
+  background:var(--card);border-radius:var(--radius);
+  padding:32px 28px;box-shadow:var(--shadow);
+  border:1px solid transparent;
+  transition:all .3s cubic-bezier(.4,0,.2,1);
+  text-decoration:none;color:inherit;display:block;
+  position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:0;left:0;right:0;
+  height:3px;
+  background:var(--gradient);
+  opacity:0;transition:opacity .3s;
+}
+.card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 20px 50px rgba(99,102,241,.15);
+  border-color:rgba(99,102,241,.1);
+}
+.card:hover::before{opacity:1}
+.card-icon{
+  font-size:2.8rem;margin-bottom:16px;
+  display:inline-block;
+  transition:transform .3s;
+}
+.card:hover .card-icon{transform:scale(1.1)}
+.card h2{font-size:1.15rem;font-weight:700;margin-bottom:8px;color:var(--text)}
+.card p{color:var(--muted);font-size:.88rem;line-height:1.6}
+.card .tag{
+  display:inline-block;padding:3px 10px;border-radius:20px;
+  font-size:.7rem;font-weight:600;margin-top:14px;
+  background:linear-gradient(135deg,rgba(99,102,241,.08),rgba(139,92,246,.08));
+  color:var(--accent);
+}
+/* No results */
+.no-results{
+  text-align:center;padding:60px 20px;
+  color:var(--muted);font-size:1.1rem;
+  grid-column:1/-1;
+}
+/* Footer */
+.footer{
+  text-align:center;padding:40px 20px;
+  color:var(--muted);font-size:.85rem;
+  border-top:1px solid var(--border);
+  background:#fff;
+}
+.footer a{color:var(--accent);text-decoration:none;font-weight:600}
+.footer a:hover{text-decoration:underline}
+/* Ad unit */
+.ad-wrap{
+  max-width:1200px;margin:0 auto 20px;padding:0 20px;
+}
+/* Responsive */
+@media(max-width:768px){
+  .hero{padding:50px 20px 70px}
+  .hero h1{font-size:2rem}
+  .hero .icon{font-size:3rem}
+  .stats{gap:30px}
+  .stat-num{font-size:1.8rem}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px}
+  .card{padding:24px 20px}
+}
 </style>
 </head>
 <body>
-<div class="container">
-<header>
-<h1>🛠️ AI工具箱</h1>
-<p>每天自动生成一个实用在线工具 · 完全免费 · 无需下载</p>
-<div class="stats">
-<div class="stat"><div class="stat-num" id="tool-count">29</div><div class="stat-label">在线工具</div></div>
-<div class="stat"><div class="stat-num">100%</div><div class="stat-label">免费使用</div></div>
-<div class="stat"><div class="stat-num">本地</div><div class="stat-label">数据处理</div></div>
+
+<div class="hero">
+  <div class="icon">🧰</div>
+  <h1>AI 工具箱</h1>
+  <p>29 个实用在线工具 · 每日自动更新 · 完全免费</p>
+  <div class="stats">
+    <div class="stat"><div class="stat-num">29</div><div class="stat-label">在线工具</div></div>
+    <div class="stat"><div class="stat-num">100%</div><div class="stat-label">免费使用</div></div>
+    <div class="stat"><div class="stat-num">本地</div><div class="stat-label">数据处理</div></div>
+  </div>
 </div>
-</header>
 
-<div class="grid" id="tools-grid">
+<div class="search-wrap">
+  <input type="text" id="search" placeholder="搜索工具……" oninput="filter()">
+  <span class="search-icon">🔍</span>
+</div>
 
-<div class="tool-card">
+<div class="container">
+<div class="grid" id="grid">
+
+<div class="tool-card" data-keywords="图片压缩 image-compressor 图片">
 <a class="card" href="/tools/image-compressor">
 <div class="card-icon">🗜️</div>
-<h2>图片压缩工具</h2>
+<h2>图片压缩</h2>
 <p>在线压缩PNG/JPEG图片，实时预览，浏览器本地处理。</p>
+<span class="tag">图片</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="二维码生成 qr-generator 生成">
 <a class="card" href="/tools/qr-generator">
 <div class="card-icon">📱</div>
-<h2>二维码生成器</h2>
+<h2>二维码生成</h2>
 <p>输入文字或链接，一键生成二维码图片并下载。</p>
+<span class="tag">生成</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="密码生成器 password-generator 安全">
 <a class="card" href="/tools/password-generator">
 <div class="card-icon">🔐</div>
-<h2>随机密码生成器</h2>
-<p>自定义长度和字符类型，一键生成高强度随机密码。</p>
+<h2>密码生成器</h2>
+<p>自定义长度和字符类型，生成高强度随机密码。</p>
+<span class="tag">安全</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="字数统计 text-counter 文字">
 <a class="card" href="/tools/text-counter">
 <div class="card-icon">📝</div>
-<h2>字数统计器</h2>
+<h2>字数统计</h2>
 <p>实时统计中英文字数、字符数、段落数、阅读时间。</p>
+<span class="tag">文字</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="JSON 格式化 json-formatter 开发">
 <a class="card" href="/tools/json-formatter">
 <div class="card-icon">📋</div>
-<h2>JSON 格式化工具</h2>
+<h2>JSON 格式化</h2>
 <p>在线格式化、压缩、验证JSON数据，语法高亮。</p>
+<span class="tag">开发</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="Base64 编解码 base64-encoder 开发">
 <a class="card" href="/tools/base64-encoder">
 <div class="card-icon">🔢</div>
 <h2>Base64 编解码</h2>
 <p>在线Base64编码/解码，支持文本和文件。</p>
+<span class="tag">开发</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="调色板 color-palette 设计">
 <a class="card" href="/tools/color-palette">
 <div class="card-icon">🎨</div>
-<h2>调色板生成器</h2>
+<h2>调色板</h2>
 <p>随机生成美观配色方案，一键复制色号。</p>
+<span class="tag">设计</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="URL 编解码 url-encoder 开发">
 <a class="card" href="/tools/url-encoder">
 <div class="card-icon">🔗</div>
 <h2>URL 编解码</h2>
 <p>URL编码/解码，参数解析，开发者必备。</p>
+<span class="tag">开发</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="时间戳转换 timestamp-converter 开发">
 <a class="card" href="/tools/timestamp-converter">
 <div class="card-icon">⏰</div>
-<h2>时间戳转换器</h2>
+<h2>时间戳转换</h2>
 <p>Unix时间戳与日期互转，支持多时区。</p>
+<span class="tag">开发</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="UUID 生成 uuid-generator 开发">
 <a class="card" href="/tools/uuid-generator">
 <div class="card-icon">🆔</div>
-<h2>UUID 生成器</h2>
+<h2>UUID 生成</h2>
 <p>生成UUID v4，支持批量生成。</p>
+<span class="tag">开发</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="Lorem Ipsum lorem-ipsum 文字">
 <a class="card" href="/tools/lorem-ipsum">
 <div class="card-icon">📄</div>
-<h2>Lorem Ipsum 生成器</h2>
+<h2>Lorem Ipsum</h2>
 <p>生成中英文占位文本，自定义段落数。</p>
+<span class="tag">文字</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="大小写转换 case-converter 文字">
 <a class="card" href="/tools/case-converter">
 <div class="card-icon">🔤</div>
-<h2>大小写转换器</h2>
+<h2>大小写转换</h2>
 <p>一键转换大小写、驼峰、下划线等格式。</p>
+<span class="tag">文字</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="百分比计算 percentage-calc 数学">
 <a class="card" href="/tools/percentage-calc">
 <div class="card-icon">💯</div>
-<h2>百分比计算器</h2>
+<h2>百分比计算</h2>
 <p>快速计算百分比、折扣、涨跌幅。</p>
+<span class="tag">数学</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="随机数生成 random-number 数学">
 <a class="card" href="/tools/random-number">
 <div class="card-icon">🎲</div>
-<h2>随机数生成器</h2>
+<h2>随机数生成</h2>
 <p>自定义范围生成随机数，可批量可去重。</p>
+<span class="tag">数学</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="在线秒表 stopwatch 工具">
 <a class="card" href="/tools/stopwatch">
 <div class="card-icon">⏱️</div>
 <h2>在线秒表</h2>
-<p>精准在线秒表，支持计次和倒计时。</p>
+<p>精准在线秒表，支持计次和重置。</p>
+<span class="tag">工具</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="CSS 渐变 gradient-generator 设计">
 <a class="card" href="/tools/gradient-generator">
 <div class="card-icon">🌈</div>
-<h2>CSS 渐变生成器</h2>
+<h2>CSS 渐变</h2>
 <p>可视化创建CSS渐变色，一键复制代码。</p>
+<span class="tag">设计</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="Emoji 搜索 emoji-search 工具">
 <a class="card" href="/tools/emoji-search">
 <div class="card-icon">🔎</div>
-<h2>Emoji 搜索器</h2>
+<h2>Emoji 搜索</h2>
 <p>按关键词搜索Emoji，一键复制。</p>
+<span class="tag">工具</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="单位换算 unit-converter 数学">
 <a class="card" href="/tools/unit-converter">
 <div class="card-icon">📐</div>
-<h2>单位换算器</h2>
+<h2>单位换算</h2>
 <p>长度/重量/温度/面积/速度在线换算。</p>
+<span class="tag">数学</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="CSV 转 JSON csv-to-json 开发">
 <a class="card" href="/tools/csv-to-json">
 <div class="card-icon">📊</div>
 <h2>CSV 转 JSON</h2>
 <p>CSV和JSON格式互转，支持自定义分隔符。</p>
+<span class="tag">开发</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="Cron 解析 cron-parser 开发">
 <a class="card" href="/tools/cron-parser">
 <div class="card-icon">🕐</div>
-<h2>Cron 表达式解析</h2>
-<p>解析Cron定时表达式，显示下次执行时间。</p>
+<h2>Cron 解析</h2>
+<p>解析Cron定时表达式，显示执行时间。</p>
+<span class="tag">开发</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="Markdown 预览 markdown-preview 开发">
 <a class="card" href="/tools/markdown-preview">
 <div class="card-icon">📖</div>
-<h2>Markdown 预览器</h2>
+<h2>Markdown 预览</h2>
 <p>实时编辑和预览Markdown，支持多种语法。</p>
+<span class="tag">开发</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="HTML 实体转义 html-entity 开发">
 <a class="card" href="/tools/html-entity">
 <div class="card-icon">🏷️</div>
 <h2>HTML 实体转义</h2>
 <p>HTML特殊字符编码/解码，防XSS注入。</p>
+<span class="tag">开发</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="正则测试 regex-tester 开发">
 <a class="card" href="/tools/regex-tester">
 <div class="card-icon">🔍</div>
-<h2>正则表达式测试</h2>
+<h2>正则测试</h2>
 <p>在线测试正则表达式，实时高亮匹配。</p>
+<span class="tag">开发</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="IP 查询 ip-lookup 网络">
 <a class="card" href="/tools/ip-lookup">
 <div class="card-icon">🌍</div>
-<h2>IP 地址查询</h2>
+<h2>IP 查询</h2>
 <p>查询IP归属地、运营商信息。</p>
+<span class="tag">网络</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="UA 解析 user-agent 网络">
 <a class="card" href="/tools/user-agent">
 <div class="card-icon">🖥️</div>
-<h2>User-Agent 解析器</h2>
+<h2>UA 解析</h2>
 <p>解析浏览器UA，显示设备和系统信息。</p>
+<span class="tag">网络</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="文本对比 diff-checker 文字">
 <a class="card" href="/tools/diff-checker">
 <div class="card-icon">↔️</div>
-<h2>文本差异对比</h2>
+<h2>文本对比</h2>
 <p>对比两段文本差异，高亮增删改。</p>
+<span class="tag">文字</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="条形码生成 barcode-generator 生成">
 <a class="card" href="/tools/barcode-generator">
 <div class="card-icon">📊</div>
-<h2>条形码生成器</h2>
+<h2>条形码生成</h2>
 <p>在线生成条形码并下载PNG图片。</p>
+<span class="tag">生成</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="图片裁剪 image-cropper 图片">
 <a class="card" href="/tools/image-cropper">
 <div class="card-icon">✂️</div>
-<h2>图片裁剪工具</h2>
+<h2>图片裁剪</h2>
 <p>在线裁剪图片，自定义宽高。</p>
+<span class="tag">图片</span>
 </a>
 </div>
-
-<div class="tool-card">
+<div class="tool-card" data-keywords="表情包生成 meme-generator 图片">
 <a class="card" href="/tools/meme-generator">
 <div class="card-icon">😂</div>
-<h2>表情包生成器</h2>
+<h2>表情包生成</h2>
 <p>上传图片，添加文字，一键生成表情包。</p>
+<span class="tag">图片</span>
 </a>
 </div>
 
 </div>
+<div class="no-results" id="noResults" style="display:none">😕 没有找到匹配的工具，试试其他关键词吧</div>
 </div>
 
-<div style="max-width:1100px;margin:0 auto 20px;padding:0 20px">
+<div class="ad-wrap">
 <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-3843355642836530" data-ad-slot="1234567890" data-ad-format="auto" data-full-width-responsive="true"></ins>
 <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
 </div>
 
-<footer>
-<p>🛠️ AI工具箱 · 每日自动更新 · 数据不上传服务器 · <a href="/sitemap.xml">站点地图</a></p>
-</footer>
+<div class="footer">
+  <p>🛠️ <a href="/">AI工具箱</a> · 每日自动更新 · 数据不上传服务器 · <a href="/sitemap.xml">站点地图</a></p>
+</div>
+
+<script>
+function filter(){
+  var q=document.getElementById('search').value.toLowerCase();
+  var cards=document.querySelectorAll('.tool-card');
+  var found=0;
+  cards.forEach(function(c){
+    var kw=c.dataset.keywords;
+    if(!q||kw.includes(q)){
+      c.style.display='';
+      found++;
+    }else{
+      c.style.display='none';
+    }
+  });
+  document.getElementById('noResults').style.display=found?'none':'block';
+}
+</script>
 </body>
 </html>
