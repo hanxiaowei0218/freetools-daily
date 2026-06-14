@@ -1,0 +1,38 @@
+﻿name: Daily Tool Generation
+
+on:
+  schedule:
+    # Runs at 00:00 UTC (08:00 Beijing time) every day
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    # Allows manual trigger from GitHub UI
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Generate today tool
+        run: python generate_tool.py
+
+      - name: Commit and push
+        run: |
+          git config user.name "AI Toolbox Bot"
+          git config user.email "bot@aitoolbox.vercel.app"
+          git add -A
+          if git diff --staged --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Daily: new tool added [auto]"
+            git push
+          fi
